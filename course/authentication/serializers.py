@@ -12,9 +12,10 @@ class AccountSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(AccountSerializer, self).__init__(*args, **kwargs)
 
-        # self.request = self.context['request']
-        # if not self.request.method == "POST":
-        #     del self.fields['auth_token']
+        if self.context.get("request"):
+            self.request = self.context['request']
+            if not self.request.method == "POST":
+                del self.fields['auth_token']
 
     class Meta:
         model = Account

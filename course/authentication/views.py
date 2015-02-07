@@ -35,16 +35,38 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         """
-        Return a list of accountss.
+        Return a list of accounts.
 
         """
         return super(AccountViewSet, self).list(request, *args, **kwargs)
 
+    def update(self, request, *args, **kwargs):
+        """
+        Update an object with all fields required
+
+        """
+        return super(AccountViewSet, self).update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        """
+        Update an object with specific field
+
+        """
+        return super(AccountViewSet, self).partial_update(request, *args,
+                                                          **kwargs)
+
 
 class LoginView(views.APIView):
-    permission_classes = ()
+    """
+    Login Ressource
+
+    """
 
     def post(self, request, format=None):
+        """
+        Two arguments needed:
+        username & password
+        """
         data = request.DATA
 
         username = data.get('username', None)
@@ -69,7 +91,15 @@ class LoginView(views.APIView):
 class LogoutView(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
+    """
+    Logout Ressource
+    """
+
     def post(self, request, format=None):
+        """
+        Simple Call on /logout in post. No arguments
+
+        """
         logout(request)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
