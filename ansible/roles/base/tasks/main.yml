@@ -1,0 +1,42 @@
+---
+
+- name: Ensure bash, OpenSSl, and libssl are the latest versions
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
+  with_items:
+    - bash
+    - openssl
+    - libssl-dev
+    - libssl-doc
+  tags: packages
+
+- name: Install base packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  with_items:
+    - build-essential
+    - ntp
+    - htop
+    - git
+    - tig
+    - tmux
+    - ncdu
+    - python-dev
+    - python-pip
+    - python-pycurl
+    - python3-dev
+    - supervisor
+  tags: packages
+
+
+
+  ####################
+  # Security
+  #####################
+- name: Install Fail2ban
+  apt: name=fail2ban state=present
+
+- name: Start Fail2ban service
+  service: name=fail2ban state=started
+
+- name: Install virtualenv
+  pip: name=virtualenv
+  tags: packages

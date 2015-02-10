@@ -1,0 +1,31 @@
+---
+
+- name: Install packages required by the Django app inside virtualenv
+  pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
+
+- name: Copy local_settings
+  template: src=local_settings.py.j2
+            dest={{application_path}}/{{config_name}}/local_settings.py
+
+- name: Run Django migrations
+  django_manage:
+    command: migrate
+    app_path: '{{ application_path }}'
+    virtualenv: '{{ virtualenv_path }}'
+    settings: '{{ django_settings_file }}'
+  environment: django_environment
+  when: run_django_migration
+  tags: django
+
+- name: Run Django collectstatic
+  django_manage:
+    command: collectstatic
+    app_path: '{{ application_path }}'
+    virtualenv: '{{ virtualenv_path }}'
+    settings: '{{ django_settings_file }}'
+  environment: django_environment
+  when: run_django_collectstatic
+  tags: django
+
+
+

@@ -1,0 +1,15 @@
+---
+- name: Copy the SSH public key file
+  copy: src=id_rsa.pub
+        dest=/root/.ssh/id_rsa.pub
+        mode=0644
+
+- name: Copy the SSH private key file
+  copy: src=id_rsa
+        dest=/root/.ssh/id_rsa
+        mode=0600
+
+- name: Setup the Git repo
+  git: repo={{ git_repo }} dest={{ project_path }} accept_hostkey=yes
+  when: setup_git_repo
+  tags: git
