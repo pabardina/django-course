@@ -7,7 +7,7 @@ class IsOwner(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
-        if hasattr(obj, 'auth_token') and hasattr(request.auth, 'key'):
+        if hasattr(obj, 'auth_token') and hasattr(request.auth, 'key') and not request.method == "GET":
             return obj.auth_token.key == request.auth.key
         elif request.method == 'POST' or request.method == "GET":
             return permissions.AllowAny(),

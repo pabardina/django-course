@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, authentication
 from rest_framework import status, views
 from rest_framework.response import Response
 
@@ -13,6 +13,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     """ Account resource. """
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    authentication_classes = authentication.TokenAuthentication,
     permission_classes = IsOwner,
 
     def create(self, request):
@@ -61,6 +62,7 @@ class LoginView(views.APIView):
     Login Ressource
 
     """
+    permission_classes = permissions.AllowAny,
 
     def post(self, request, format=None):
         """
@@ -78,14 +80,19 @@ class LoginView(views.APIView):
             if account.is_active:
                 login(request, account)
 
-                serialized = AccountSerializer(account,
-                                               context={'request': request})
+                serialized = AccountSerializer(account)
 
                 return Response(serialized.data)
             else:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+                return Response({
+                    'status': 'Unauthorized',
+                    'message': 'This account has been disabled.'
+                }, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response({
+                'status': 'Unauthorized',
+                'message': 'Username/password combination invalid.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LogoutView(views.APIView):
