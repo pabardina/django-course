@@ -152,4 +152,9 @@ STATIC_URL = '/static/'
 #==============================================================================
 
 # from config.local_settings import *
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase.sqlite3',
+    }
+}
