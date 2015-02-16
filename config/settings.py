@@ -151,5 +151,5 @@ STATIC_URL = '/static/'
 # Import local settings
 #==============================================================================
 
-from config.local_settings import *
+# from config.local_settings import *
 
