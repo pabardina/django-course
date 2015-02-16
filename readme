@@ -1,1 +1,4 @@
-hello
+Django Course
+========
+
+[![Build Status](https://magnum.travis-ci.com/pabardina/django-course.svg?token=TCKpikhKygCLsS9qeJao&branch=master)](https://magnum.travis-ci.com/pabardina/django-course)
