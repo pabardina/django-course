@@ -6,8 +6,8 @@ env:
 before_install:
   - export DJANGO_SETTINGS_MODULE=config.settings
   - export PYTHONPATH=$HOME/builds/pabardina/django-course
-  - export PIP_USE_MIRRORS=true 
+  - cd course
 
-install: "pip install -r requirements.txt"
+install: "pip install -r course/requirements.txt"
 script:
   - python manage.py test
