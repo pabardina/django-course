@@ -1,13 +1,16 @@
 language: python
+
 python:
     - "3.4"
+
 env:
     - DJANGO_VERSION=1.7.4 DB=postgres
+
 before_install:
   - export DJANGO_SETTINGS_MODULE=config.settings
   - export PYTHONPATH=$HOME/builds/pabardina/django-course
   - cd course
 
-install: "pip install -r course/requirements.txt"
+install: "pip install -r requirements.txt"
 script:
   - python manage.py test
