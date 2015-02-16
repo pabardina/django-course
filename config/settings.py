@@ -147,9 +147,6 @@ REST_FRAMEWORK = {
 
 STATIC_URL = '/static/'
 
-#==============================================================================
-# Import local settings
-#==============================================================================
 
 # from config.local_settings import *
 DATABASES = {
@@ -158,3 +155,11 @@ DATABASES = {
         'NAME': 'mydatabase.sqlite3',
     }
 }
+
+#==============================================================================
+# Import local settings
+#==============================================================================
+
+if os.path.isfile(BASEPATH + "/local_settings.py"):
+    from config.local_settings import *
+
