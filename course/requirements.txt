@@ -2,6 +2,7 @@ Django==1.7.4
 PyYAML==3.11
 Pygments==2.0.2
 bpython==0.13.2
+django-cors-headers==1.0.0
 django-extensions==1.5.0
 django-rest-swagger==0.2.8
 djangorestframework==3.0.4
