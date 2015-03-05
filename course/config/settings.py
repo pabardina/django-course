@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'rest_framework_nested',
     'rest_framework_swagger',
     'django_extensions',
+    'corsheaders',
 )
 
 
@@ -93,6 +94,7 @@ AUTHENTICATION_BACKENDS = (
 #==============================================================================
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,6 +142,7 @@ REST_FRAMEWORK = {
     )
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 #==============================================================================
 # Project URLS and media settings
